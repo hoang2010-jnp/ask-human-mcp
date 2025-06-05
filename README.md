@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
-A Model Context Protocol (MCP) server that lets AI agents escalate questions to humans instead of hallucinating answers. Perfect for AI coding assistants like Cursor, Claude Desktop, or any MCP-compatible client.
+A Model Context Protocol server that lets AI agents escalate questions to humans instead of hallucinating answers. Perfect for AI Coding Agents via Cursor, Claude Desktop, or any other mcp compatable client.
 
 ## 🚀 Quick Start
 
@@ -20,7 +20,7 @@ pip install ask-human-mcp
 ask-human-mcp
 ```
 
-The server will start and create an `ask_human.md` file in your home directory for Q&A logging.
+The server will start and create an `ask_human.md` file in your home directory.
 
 ### Connect to Cursor
 
@@ -205,11 +205,12 @@ mypy ask_human_mcp
 
 ## 🤝 Contributing
 
-We welcome contributions! 
+Would love any contributors
 
 ### Reporting Issues
 
 Please use the GitHub issue tracker to report bugs or request features.
+You can also just email me: mason@kallro.com 
 Include:
 - Python version
 - Operating system

@@ -10,55 +10,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2025-01-15
 
 ### Added
-- Initial release of Ask-Human MCP Server
-- Basic MCP server functionality with `ask_human`, `list_pending_questions`, and `get_qa_stats` tools
-- File-based Q&A system using markdown format
-- Cross-platform file watching for instant response detection
-- Timeout handling with configurable timeouts
-- Concurrent question support with resource limits
-- Command-line interface with comprehensive options
-- Cursor and Claude Desktop integration examples
-- Comprehensive test suite with 24+ test cases
-- Cross-platform compatibility (Windows, macOS, Linux)
+- First release! 🎉 Built the core Ask-Human MCP Server
+- Created the basic toolset: `ask_human`, `list_pending_questions`, and `get_qa_stats`
+- Set up a simple markdown-based Q&A system that just works
+- Added file watching so AI gets your answers instantly
+- Built in timeout handling so the AI won't wait forever
+- Support for multiple questions at once (with reasonable limits)
+- Simple command-line interface with all the options you need
+- Added examples for Cursor and Claude Desktop
+- Wrote a solid test suite with 24+ tests
+- Works great on Windows, macOS, and Linux
 
-### Security
-- Input validation and sanitization to prevent malicious content
-- File locking to prevent corruption from concurrent access
-- Secure file permissions (owner-only access)
-- Resource limits to prevent DoS attacks and memory exhaustion
-- Path validation to ensure files are written to safe locations
+### Security & Reliability
+- Validated all inputs to keep things safe
+- Added file locking to prevent data corruption
+- Set up proper file permissions (only you can access your Q&A file)
+- Added resource limits to keep things running smoothly
+- Made sure files only get written where they should
 
 ### Performance
-- Robust markdown parsing using regex instead of fragile string operations
-- File rotation to prevent infinite growth (configurable size limits)
-- Memory leak prevention with proper cleanup of answered questions
-- Debounced file change notifications to prevent event flooding
-- Atomic file operations for consistency
+- Used robust regex for markdown parsing instead of hacky string splitting
+- Added file rotation so your Q&A file doesn't grow forever
+- Prevented memory leaks by cleaning up answered questions
+- Reduced file system events to avoid overwhelming your system
+- Used atomic file operations for reliability
 
 ### Bug Fixes
-- **CRITICAL**: Fixed memory leak where answered questions were never cleaned up from memory
-- **CRITICAL**: Fixed race condition in question registration that could cause lost questions
-- **CRITICAL**: Added input validation with size limits to prevent DoS attacks
-- **CRITICAL**: Implemented file rotation to prevent unlimited disk usage
-- Fixed cross-platform file locking issues
-- Fixed line ending normalization across platforms
-- Fixed brittle markdown parsing that broke with formatting variations
-- Added proper error handling and graceful degradation
-- Fixed observer thread cleanup on shutdown
+- Fixed a memory leak where answered questions stuck around forever
+- Fixed a race condition that could lose questions
+- Added input validation to prevent overload attacks
+- Implemented file rotation to keep disk usage in check
+- Fixed file locking issues across different operating systems
+- Made sure line endings work correctly across platforms
+- Improved markdown parsing to handle different formatting styles
+- Added proper error handling with graceful fallbacks
+- Made sure observer threads clean up properly on shutdown
 
 ### Configuration
-- Configurable question length limits (default: 10KB)
-- Configurable context length limits (default: 50KB)
+- Adjustable question length limits (default: 10KB)
+- Adjustable context length limits (default: 50KB)
 - Configurable maximum pending questions (default: 100)
-- Configurable file size limits (default: 100MB)
+- Adjustable file size limits (default: 100MB)
 - Configurable file rotation size (default: 50MB)
-- Configurable timeout periods (default: 30 minutes)
-- Platform-appropriate default file locations
+- Adjustable timeout periods (default: 30 minutes)
+- Smart default file locations based on your OS
 
 ### Developer Experience
-- Comprehensive documentation and examples
-- Type hints throughout the codebase
-- Proper exception hierarchy with specific error types
-- Health check endpoint for monitoring
-- Detailed statistics and logging
-- Development dependencies and tooling setup 
+- Clear documentation and examples to get you started
+- Full type hints throughout the code
+- Proper exception handling with specific error types
+- Health check endpoint to monitor server status
+- Detailed stats and logging to understand what's happening
+- Dev dependencies and tooling ready to go
