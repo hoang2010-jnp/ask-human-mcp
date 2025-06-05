@@ -1,85 +1,96 @@
-# Ask-Human MCP 🧑‍💻🤝🤖
+# ask-human mcp 🧑‍💻🤝🤖
 
 [![PyPI version](https://badge.fury.io/py/ask-human-mcp.svg)](https://badge.fury.io/py/ask-human-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
-A Model Context Protocol server that lets AI agents escalate questions to humans instead of hallucinating answers. Perfect for AI Coding Agents via Cursor, Claude Desktop, or any other mcp compatable client.
+stop your ai from hallucinating. gives it an escape route when confused instead of false confidence.
 
-## 🚀 Quick Start
+## the pain
+ai blurts out an endpoint that never existed
 
-### Installation
+the agent makes assumptions that are simply not true and has false confidence  
+
+repeat x100 errors and your day is spent debugging false confidence and issues when you could simply ask a question
+
+## the fix
+an mcp server that lets the agent raise its hand instead of hallucinating. feels like mentoring a sharp intern who actually asks before guessing.
+
+agent → ask_human()  
+⬇  
+question lands in ask_human.md  
+⬇  
+you swap "PENDING" for the answer  
+⬇  
+agent keeps coding  
+
+### sample file:
+```markdown
+### Q8c4f1e2a
+ts: 2025-01-15 14:30  
+q: which auth endpoint do we use?  
+ctx: building login form in auth.js  
+answer: PENDING
+```
+
+you drop:
+```markdown
+answer: POST /api/v2/auth/login
+```
+
+boom. flow continues and hopefully the issues are solved.
+
+## why it's good
+- pip install ask-human-mcp → done
+- zero config, cross-platform  
+- watches the file, instant feedback
+- multiple agents, no sweat
+- locks + limits so nothing catches fire
+- full q&a history in markdown (nice paper-trail for debugging)
+
+## 30-sec setup
 
 ```bash
 pip install ask-human-mcp
-```
-
-### Start the Server
-
-```bash
 ask-human-mcp
 ```
 
-The server will start and create an `ask_human.md` file in your home directory.
-
-### Connect to Cursor
-
-Create or edit `.cursor/mcp.json` in your project root:
-
+`.cursor/mcp.json`:
 ```json
 {
   "mcpServers": {
-    "ask-human": {
-      "command": "ask-human-mcp"
-    }
+    "ask-human": { "command": "ask-human-mcp" }
   }
 }
 ```
 
-Restart Cursor and you're ready to go!
+restart cursor and vibe.
 
-## 🎯 How It Works
+## how it works
 
-1. **AI gets stuck** → Calls `ask_human(question, context)`
-2. **Question logged** → Appears in `ask_human.md` with unique ID
-3. **Human answers** → Replace "PENDING" with your response
-4. **AI continues** → Uses your answer to proceed
+1. ai gets stuck → calls `ask_human(question, context)`
+2. question logged → appears in `ask_human.md` with unique ID  
+3. human answers → replace "PENDING" with your response
+4. ai continues → uses your answer to proceed
 
-### Example Flow
+the ai receives your answer and keeps coding!
 
-```markdown
-### Q8c4f1e2a
-**Timestamp:** 2025-01-15 14:30:22
-**Question:** What's the correct API endpoint for user authentication?
-**Context:** Building login form in auth.js, unclear which endpoint to use
-**Answer:** PENDING
-```
+## config options (if you want them)
 
-You edit it to:
-
-```markdown
-**Answer:** Use `/api/v2/auth/login` with POST method
-```
-
-The AI receives your answer and continues coding!
-
-## 🔧 Configuration Options
-
-### Command Line Options
-
+### command line
 ```bash
 ask-human-mcp --help
-ask-human-mcp --port 3000 --host 0.0.0.0  # HTTP mode
-ask-human-mcp --timeout 1800               # 30min timeout
-ask-human-mcp --file custom_qa.md          # Custom Q&A file
-ask-human-mcp --max-pending 50             # Max concurrent questions
-ask-human-mcp --max-question-length 5000   # Max question size
-ask-human-mcp --rotation-size 10485760     # Rotate file at 10MB
+ask-human-mcp --port 3000 --host 0.0.0.0  # http mode
+ask-human-mcp --timeout 1800               # 30min timeout  
+ask-human-mcp --file custom_qa.md          # custom q&a file
+ask-human-mcp --max-pending 50             # max concurrent questions
+ask-human-mcp --max-question-length 5000   # max question size
+ask-human-mcp --rotation-size 10485760     # rotate file at 10mb
 ```
 
-### MCP Client Configurations
+### different clients
 
-#### Cursor (Local)
+cursor (local):
 ```json
 {
   "mcpServers": {
@@ -91,7 +102,7 @@ ask-human-mcp --rotation-size 10485760     # Rotate file at 10MB
 }
 ```
 
-#### Cursor (HTTP)
+cursor (http):
 ```json
 {
   "mcpServers": {
@@ -102,7 +113,7 @@ ask-human-mcp --rotation-size 10485760     # Rotate file at 10MB
 }
 ```
 
-#### Claude Desktop
+claude desktop:
 ```json
 {
   "mcpServers": {
@@ -113,75 +124,60 @@ ask-human-mcp --rotation-size 10485760     # Rotate file at 10MB
 }
 ```
 
-## 🛠️ Features
+## what's in the box
+- zero configuration → works out of the box
+- file watching → instant response when you save answers  
+- timeout handling → questions don't hang forever
+- concurrent questions → handle multiple ai agents
+- persistent logging → full q&a history in markdown
+- cross-platform → windows, macos, linux
+- mcp standard → works with any mcp client
+- input validation → size limits and sanitization
+- file rotation → automatic archiving of large files
+- resource limits → prevent dos and memory leaks
+- robust parsing → handles malformed markdown gracefully
 
-- ✅ **Zero Configuration** - Works out of the box
-- ✅ **File Watching** - Instant response when you save answers
-- ✅ **Timeout Handling** - Questions don't hang forever
-- ✅ **Concurrent Questions** - Handle multiple AI agents
-- ✅ **Persistent Logging** - Full Q&A history in markdown
-- ✅ **Cross-Platform** - Windows, macOS, Linux
-- ✅ **MCP Standard** - Works with any MCP client
-- ✅ **Input Validation** - Size limits and sanitization
-- ✅ **File Rotation** - Automatic archiving of large files
-- ✅ **Resource Limits** - Prevent DoS and memory leaks
-- ✅ **Robust Parsing** - Handles malformed markdown gracefully
+## security stuff
+- input sanitization → removes control characters and validates sizes
+- file locking → prevents corruption from concurrent access  
+- secure permissions → files created with restricted access
+- resource limits → prevents memory exhaustion and dos attacks
+- path validation → ensures files are written to safe locations
 
-## 🔒 Security Features
+## limits (so nothing breaks)
 
-- **Input sanitization** - Removes control characters and validates sizes
-- **File locking** - Prevents corruption from concurrent access
-- **Secure permissions** - Files created with restricted access
-- **Resource limits** - Prevents memory exhaustion and DoS attacks
-- **Path validation** - Ensures files are written to safe locations
+| thing | default | what it does |
+|-------|---------|--------------|
+| question length | 10kb | max characters per question |
+| context length | 50kb | max characters per context |
+| pending questions | 100 | max concurrent questions |
+| file size | 100mb | max ask file size |
+| rotation size | 50mb | size at which files are archived |
 
-## 📊 Resource Limits
+## platform support
+- windows → full support with native file locking
+- macos → full support with fsevents file watching  
+- linux → full support with inotify file watching
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Question Length | 10KB | Maximum characters per question |
-| Context Length | 50KB | Maximum characters per context |
-| Pending Questions | 100 | Maximum concurrent questions |
-| File Size | 100MB | Maximum ask file size |
-| Rotation Size | 50MB | Size at which files are archived |
+## api stuff
 
-## 🌍 Platform Support
+### ask_human(question, context="")
+ask the human a question and wait for response.
 
-- **Windows** - Full support with native file locking
-- **macOS** - Full support with FSEvents file watching
-- **Linux** - Full support with inotify file watching
-
-## 📚 API Reference
-
-### Available Tools
-
-#### `ask_human(question: str, context: str = "") -> str`
-Ask the human a question and wait for response.
-
-**Parameters:**
-- `question`: The question you want answered
-- `context`: Additional context (file paths, error messages, etc.)
-
-**Returns:** The human's response
-
-**Example:**
 ```python
 answer = await ask_human(
-    "What database should I use for this project?",
-    "Building a chat app with 1000+ concurrent users"
+    "what database should i use for this project?",
+    "building a chat app with 1000+ concurrent users"
 )
 ```
 
-#### `list_pending_questions() -> str`
-Get a list of questions waiting for answers.
+### other tools
+- `list_pending_questions()` → get questions waiting for answers
+- `get_qa_stats()` → get stats about the q&a session
 
-#### `get_qa_stats() -> str`
-Get statistics about the Q&A session.
+## development
 
-## 🚀 Development
-
-### Running from Source
-
+### from source
 ```bash
 git clone https://github.com/masonyarbrough/ask-human-mcp.git
 cd ask-human-mcp
@@ -189,50 +185,41 @@ pip install -e ".[dev]"
 ask-human-mcp
 ```
 
-### Running Tests
-
+### tests
 ```bash
 pytest tests/ -v
 ```
 
-### Code Quality
-
+### code quality
 ```bash
 black ask_human_mcp tests
-ruff check ask_human_mcp tests
+ruff check ask_human_mcp tests  
 mypy ask_human_mcp
 ```
 
-## 🤝 Contributing
+## contributing
 
-Would love any contributors
+would love any contributors
 
-### Reporting Issues
+### issues
+use the github issue tracker to report bugs or request features.  
+you can also just email me: mason@kallro.com 
 
-Please use the GitHub issue tracker to report bugs or request features.
-You can also just email me: mason@kallro.com 
-Include:
-- Python version
-- Operating system
-- MCP client (Cursor, Claude Desktop, etc.)
-- Error messages or logs
-- Steps to reproduce
+include:
+- python version
+- operating system  
+- mcp client (cursor, claude desktop, etc.)
+- error messages or logs
+- steps to reproduce
 
-## 📝 Changelog
+## changelog
+see [CHANGELOG.md](CHANGELOG.md) for version history.
 
-See [CHANGELOG.md](CHANGELOG.md) for version history.
+## license
+mit license - see [LICENSE](LICENSE) file for details.
 
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Model Context Protocol](https://github.com/modelcontextprotocol) for the excellent standard
-- [Anthropic](https://anthropic.com) for Claude and MCP support
-- [Cursor](https://cursor.sh) for MCP integration
-- All contributors and users providing feedback
-
-## 🌟 Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=masonyarbrough/ask-human-mcp&type=Date)](https://star-history.com/#masonyarbrough/ask-human-mcp&Date)
+## thanks
+- [model context protocol](https://github.com/modelcontextprotocol) for the excellent standard
+- [anthropic](https://anthropic.com) for claude and mcp support  
+- [cursor](https://cursor.sh) for mcp integration
+- all contributors and users providing feedback
