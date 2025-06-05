@@ -1,10 +1,9 @@
 # ask-human mcp 🧑‍💻🤝🤖
 
-[![PyPI version](https://badge.fury.io/py/ask-human-mcp.svg)](https://badge.fury.io/py/ask-human-mcp)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.coff.ee/masonyarbrough)
-
+[![PyPI version](https://img.shields.io/pypi/v/ask-human-mcp?style=flat-square)](https://badge.fury.io/py/ask-human-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue?style=flat-square)](https://www.python.org/downloads/)
+[!["Buy Me A Coffee"](https://img.shields.io/badge/buy_me_a_coffee-donate-orange?style=flat-square)](https://www.coff.ee/masonyarbrough)
 
 stop your ai from hallucinating. gives it an escape route when confused instead of false confidence.
 
