@@ -38,6 +38,16 @@ from mcp.server.fastmcp import FastMCP
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
+# Enable nested asyncio support to fix "Already running asyncio in this thread" errors
+try:
+    import nest_asyncio
+    nest_asyncio.apply()
+    logger = logging.getLogger("ask-human-mcp")
+    logger.debug("Applied nest_asyncio patch for nested event loop support")
+except ImportError:
+    logger = logging.getLogger("ask-human-mcp")
+    logger.warning("nest_asyncio not available - may encounter event loop issues in some environments")
+
 # Cross-platform file locking
 try:
     import fcntl  # Unix/Linux/macOS
@@ -284,6 +294,11 @@ class MarkdownWatcher(FileSystemEventHandler):
         super().__init__()
         self.file_path = file_path
         self._callbacks: Dict[str, asyncio.Future] = {}
+        self._loop: Optional[asyncio.AbstractEventLoop] = None
+
+    def set_event_loop(self, loop: asyncio.AbstractEventLoop):
+        """Set the event loop to use for callbacks."""
+        self._loop = loop
 
     def on_modified(self, event):
         # Handle both the file and its parent directory
@@ -291,14 +306,28 @@ class MarkdownWatcher(FileSystemEventHandler):
             event.src_path == str(self.file_path)
             or Path(event.src_path).name == self.file_path.name
         ):
-            asyncio.create_task(self._notify_callbacks())
+            self._schedule_notify_callbacks()
 
     def on_moved(self, event):
         # Handle file moves/renames
         if not event.is_directory and (
             hasattr(event, "dest_path") and event.dest_path == str(self.file_path)
         ):
-            asyncio.create_task(self._notify_callbacks())
+            self._schedule_notify_callbacks()
+
+    def _schedule_notify_callbacks(self):
+        """Schedule the callback notification in the correct event loop."""
+        if self._loop and not self._loop.is_closed():
+            # Schedule the coroutine in the correct event loop
+            asyncio.run_coroutine_threadsafe(self._notify_callbacks(), self._loop)
+        else:
+            # Fallback: try to get the running loop (might not work from thread)
+            try:
+                loop = asyncio.get_running_loop()
+                asyncio.run_coroutine_threadsafe(self._notify_callbacks(), loop)
+            except RuntimeError:
+                # No event loop available - log and continue
+                logger.warning("No event loop available for file change notification")
 
     async def _notify_callbacks(self):
         # wake up agents
@@ -518,8 +547,6 @@ class AskHumanServer:
 
         # clean up any old questions that timed out
         await self._cleanup_timeouts()
-
-        # CRITICAL FIX: Atomic write + callback registration to prevent race condition
         try:
             # Register callback first, then write question
             change_future = await self.watcher.register_callback(q_id)
@@ -779,6 +806,13 @@ Platform: {platform.system()} {platform.release()}
 
     def start_watching(self):
         """start watching the file for changes"""
+        # Set the event loop for the watcher
+        try:
+            loop = asyncio.get_running_loop()
+            self.watcher.set_event_loop(loop)
+        except RuntimeError:
+            logger.warning("No running event loop found when starting file watcher")
+        
         self.observer.start()
 
         # Start periodic cleanup task
@@ -990,14 +1024,19 @@ async def async_main():
 def main():
     """main entry point for console script"""
     try:
-        asyncio.run(async_main())
-    except RuntimeError as e:
-        if "asyncio.run() cannot be called from a running event loop" in str(e):
-            # Already in an async context, run directly
-            loop = asyncio.get_event_loop()
-            loop.run_until_complete(async_main())
-        else:
-            raise
+        # mcp library runs and event loop so this runs in a nested event loop context fyi
+        logger.debug("Starting async_main with nest_asyncio support")
+        return asyncio.run(async_main())
+            
+    except KeyboardInterrupt:
+        logger.info("👋 Shutting down...")
+        sys.exit(0)
+    except Exception as e:
+        logger.error(f"❌ Error: {e}")
+        if logger.isEnabledFor(logging.DEBUG):
+            import traceback
+            logger.debug(f"Full traceback: {traceback.format_exc()}")
+        sys.exit(1)
 
 
 if __name__ == "__main__":

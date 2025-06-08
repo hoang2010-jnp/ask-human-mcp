@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ask-human-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "MCP server that lets AI agents escalate questions to humans"
 authors = [
     {name = "Mason Yarbrough", email = "mason@kallro.com"}
@@ -30,6 +30,7 @@ dependencies = [
     "watchdog>=3.0.0",
     "fastapi>=0.100.0",
     "uvicorn>=0.20.0",
+    "nest-asyncio>=1.5.0",
 ]
 
 [project.optional-dependencies]
